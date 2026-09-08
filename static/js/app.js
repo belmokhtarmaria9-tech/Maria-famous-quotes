@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emptyState = document.getElementById("emptyState");
   const totalQuotesBadge = document.getElementById("totalQuotesBadge");
   const toast = document.getElementById("toastNotification");
+  const themeToggleBtn = document.getElementById("themeToggleBtn");
 
   // State
   let currentQuote = null;
@@ -35,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   init();
 
   async function init() {
+    initTheme();
     setupEventListeners();
     await Promise.all([
       loadCategories(),
@@ -329,6 +331,44 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = encodeURIComponent(`"${quoteObj.quote}" — ${quoteObj.author}`);
     const twitterUrl = `https://twitter.com/intent/tweet?text=${text}`;
     window.open(twitterUrl, "_blank", "noopener,noreferrer");
+  }
+
+  /**
+   * Theme Switcher (Dark / Light mode)
+   */
+  function initTheme() {
+    const savedTheme = localStorage.getItem("wisdom_vault_theme");
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(prefersDark ? "dark" : "light");
+    }
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener("click", () => {
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(newTheme);
+        localStorage.setItem("wisdom_vault_theme", newTheme);
+      });
+    }
+  }
+
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      if (themeToggleBtn) {
+        themeToggleBtn.setAttribute("title", "Switch to light mode");
+        themeToggleBtn.setAttribute("aria-label", "Switch to light mode");
+      }
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+      if (themeToggleBtn) {
+        themeToggleBtn.setAttribute("title", "Switch to dark mode");
+        themeToggleBtn.setAttribute("aria-label", "Switch to dark mode");
+      }
+    }
   }
 
   function escapeHtml(str) {
