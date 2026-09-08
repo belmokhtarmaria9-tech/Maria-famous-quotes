@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wisdom Vault &bull; 100 Famous Quotes</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">&#10077;&#10078;</span>
+        <div class="logo-text">
+          <h1>Wisdom Vault</h1>
+          <p class="tagline">Explore 100 timeless thoughts from history's greatest minds</p>
+        </div>
+      </div>
+      <div class="header-stats">
+        <span id="totalQuotesBadge" class="stat-badge">100 Quotes</span>
+      </div>
+    </header>
+
+    <!-- Main Spotlight: Random Quote Card -->
+    <main>
+      <section class="spotlight-section" aria-label="Random Quote Spotlight">
+        <div class="spotlight-card" id="spotlightCard">
+          <div class="quote-mark-bg" aria-hidden="true">&ldquo;</div>
+          <div class="spotlight-header">
+            <span class="category-badge" id="spotlightCategory">Category</span>
+            <span class="quote-id-badge" id="spotlightId">#1</span>
+          </div>
+
+          <blockquote class="quote-content" id="spotlightQuote">
+            Loading inspiring words...
+          </blockquote>
+
+          <div class="quote-meta">
+            <cite class="quote-author" id="spotlightAuthor">&mdash; Author</cite>
+          </div>
+
+          <div class="spotlight-actions">
+            <button type="button" class="btn btn-primary" id="btnNewRandom" title="Show another random quote">
+              <span class="btn-icon">&#8635;</span> New Random Quote
+            </button>
+            <button type="button" class="btn btn-secondary" id="btnCopyQuote" title="Copy quote to clipboard">
+              <span class="btn-icon">&#128203;</span> Copy
+            </button>
+            <button type="button" class="btn btn-outline" id="btnShareQuote" title="Share quote on X / Twitter">
+              <span class="btn-icon">&#128038;</span> Share
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Explorer & Search Section -->
+      <section class="explorer-section" aria-label="Browse and Search Quotes">
+        <div class="section-header">
+          <h2>Search &amp; Filter Quotes</h2>
+          <p class="section-subtitle">Search quotes by author name, keyword, or select a category</p>
+        </div>
+
+        <!-- Controls Toolbar -->
+        <div class="controls-card">
+          <div class="search-row">
+            <div class="search-input-wrapper">
+              <span class="search-icon" aria-hidden="true">&#128269;</span>
+              <input
+                type="text"
+                id="authorSearchInput"
+                class="search-input"
+                placeholder="Search by author (e.g. Einstein, Socrates, Twain)..."
+                autocomplete="off"
+                aria-label="Search by author or keywords"
+              >
+              <button type="button" id="btnClearSearch" class="btn-clear" aria-label="Clear search" title="Clear search">&times;</button>
+            </div>
+            
+            <button type="button" id="btnResetFilters" class="btn btn-ghost" title="Reset all filters">
+              Reset Filters
+            </button>
+          </div>
+
+          <!-- Category Filter Pills -->
+          <div class="category-filter-wrapper">
+            <label class="filter-label" id="categoryLabel">Filter by Category:</label>
+            <div class="category-pills" id="categoryPills" role="radiogroup" aria-labelledby="categoryLabel">
+              <!-- Dynamically populated by vanilla JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Summary Bar -->
+        <div class="results-header">
+          <span class="results-count" id="resultsCount">Loading quotes...</span>
+          <div class="view-hint">Click any card to spotlight it</div>
+        </div>
+
+        <!-- Quotes Grid -->
+        <div class="quotes-grid" id="quotesGrid" role="feed" aria-busy="true">
+          <!-- Populated dynamically by app.js -->
+        </div>
+
+        <!-- Empty State Message -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-icon">&#128269;</div>
+          <h3>No quotes found</h3>
+          <p id="emptyStateMsg">Try searching with a different author name or category filter.</p>
+          <button type="button" class="btn btn-primary" id="btnEmptyReset">View All Quotes</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Crafted with Python Flask, Vanilla JavaScript &amp; HTML5 &bull; 100 Well-Known Quotes</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toastNotification" role="status" aria-live="polite">
+      Quote copied to clipboard!
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
